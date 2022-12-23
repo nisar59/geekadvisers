@@ -1,0 +1,275 @@
+@extends('user.layouts.master')
+@foreach($data as $data)
+@endforeach
+@section('content')
+
+<style type="text/css">
+	#logo-sec{
+		position: relative;
+    padding-top: 105px;
+    text-align: center;
+    height: 1;
+	}
+	#scrolling-text{
+		height: 1px;
+    padding-top: 51px;
+    /* text-align: center; */
+    background: #1cadac;
+    border-top: 2px solid #fff;
+	}
+	/*Marquee stile*/
+.marquee{
+  
+  position: relative;
+  width: 100%;
+  height: 48px;
+  overflow: hidden;
+  padding: 0;
+      border-top: 2px solid #fff;
+}
+.marquee .scroll{
+  width: 100%;
+  display: flex;
+}
+.marquee .scroll div{
+  color: #fff;
+  font-size: 35px;
+  background: #1779cb;
+  white-space: nowrap;
+  font-weight: 500;
+  animation: animate-marquee 80s linear infinite;
+  animation-delay: -40s;
+}
+.marquee .scroll div:nth-child(2){
+  animation: animate-marquee-2 80s linear infinite;
+  animation-delay: -80s;
+}
+.marquee .scroll div .category{
+  padding: 10px 30px;
+}
+.category{
+  color: #fff;
+  font-size: 23px;
+  font-weight: 600!important;
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 20px;
+  font-family: sans-serif;
+}
+.category a{color:#FFF;text-decoration: none;}
+
+/*Responsive marquee*/
+@media (max-width:767px){
+  .category{font-size: 25px;}
+  .marquee .scroll div{font-size: 25px;}
+}
+
+@keyframes animate-marquee{
+  0%{
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100%{
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes animate-marquee-2{
+  0%{
+    -moz-transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+  100%{
+    -moz-transform: translateX(-200%);
+    -webkit-transform: translateX(-200%);
+    transform: translateX(-200%);
+  }
+}
+	.blink {
+        animation: blink-animation 1s steps(5, start) infinite;
+        -webkit-animation: blink-animation 1s steps(5, start) infinite;
+      }
+      @keyframes blink-animation {
+        to {
+          visibility: hidden;
+        }
+      }
+      @-webkit-keyframes blink-animation {
+        to {
+          visibility: hidden;
+        }
+      }
+      ul{
+  list-style:none;
+  position:relative;
+}
+li{
+ 
+  background: #00000061;
+   text-align:center;
+  border-bottom:1px solid #fff;
+}
+h2{
+  color:#fff;
+  padding-top:10px;
+}
+p{
+  text-align:left;
+  padding:10px;
+  color:#fff;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  font-size: 20px;
+ }
+ @media only screen and (max-width: 600px) {
+  #notice-board{
+     margin-left: 14px !important;
+    background: white;
+    width: 300px !important;
+    text-align: center;
+    padding: 1px;
+    border-top: 2px solid;
+    /* border-radius: 6px; */
+    border-radius: 5px 5px 0px 0px;
+  }
+  #fb_img{
+      margin-top: 10px !important;
+  }
+}
+</style>
+<!-- Page top Section -->
+	<section class=" " id="logo-sec"  style="background: #fff !important;height: 1 !important;">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7 m-auto text-white">
+					<img id="logo" src="{{asset('public/logo/').'/'.$data->site_logo}}" style=" height: 47px;
+    width: 131px;
+    margin-top: -51px;">
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+  <marquee behavior="scroll" style="background: linear-gradient(#02AABD , #00CDAC);;
+    color: #fff;
+    padding: 7px;
+    font-size: 22px;border-top: 3px solid #ff00e8;" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+      @foreach($notice as $notice)
+    <a href="#" class="" style="color: #fff;text-decoration: none;margin:10px;"><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;{{$notice->notice}}<span>
+        @if($notice->notice_type == '0')
+            <img src="{{asset('new.gif')}}">
+        @else
+        
+        @endif
+    </span></a>
+    @endforeach
+
+</marquee>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 id="notice-board" style="   
+    background: white;
+        width: 95%;
+    margin-left: 15px;
+    text-align: center;
+    padding: 1px;
+    border-top: 2px solid;
+    /* border-radius: 6px; */
+    border-radius: 5px 5px 0px 0px;">Notice Board</h4>
+        </div>
+    </div>
+</div>
+<div id="ntc" class="container" style="overflow: hidden;margin-top: 14px;">
+
+  <div class="row">
+    <div class="col-lg-6 col-12">
+     <div class="container">
+         <ul style="border: 6px solid #fff;height: 395px;overflow-y: scroll;background: red !important;">
+    <li>
+      
+      <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    <li>
+      
+      <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    <li>
+      
+      <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    <li>
+     
+      <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    <li>
+      
+      <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    <li>
+     
+     <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    <li>
+     
+      <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    <li>
+      
+      <p><i class="fa-solid fa-circle" style="font-size: 18px;"></i>&nbsp;News detail just a line jhghdsbd hsdssdhjhdjshdjsahdjs</p>
+    </li>
+    
+  </ul>
+     </div>
+    </div>
+    <div class="col-lg-6 col-12">
+         <img src="{{asset('public/logo/').'/'.$data->fb_page_img}}" id="fb_img" style="height: 400px;
+    border: 7px solid white;
+    margin-top: -2px;">
+    <a href="{{$data->fb_link}}" target="_blank" style="color:#fff;text-decoration: underline;
+    font-size: 19px;
+    padding: 4px;
+}">Visit Our Facebook Page</a>
+    </div>
+
+  </div>
+</div>
+<br>
+
+
+
+
+
+	<div class="back-to-top" style="bottom: 30px !important;"><img src="{{asset('user/img/icons/up-arrow.png')}}" alt=""></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+//   $(function(){
+//   var tickerLength = $('.container ul li').length;
+//   var tickerHeight = $('.container ul li').outerHeight();
+//   $('.container ul li:last-child').prependTo('.container ul');
+//   $('.container ul').css('marginTop',-tickerHeight);
+//   function moveTop(){
+//     $('.container ul').animate({
+//       top : -tickerHeight
+//     },600, function(){
+//      $('.container ul li:first-child').appendTo('.container ul');
+//       $('.container ul').css('top','');
+//     });
+//   }
+//   setInterval( function(){
+//     moveTop();
+//   }, 3000);
+//   });
+</script>
+
+@endsection
