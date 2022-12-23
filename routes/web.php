@@ -27,13 +27,13 @@ Route::get('privacy-policy', [App\Http\Controllers\PrivacyController::class, 'pr
 
 /*--===============Menu Route==============--*/
 Route::get('/admin/dashboard/about-us', [App\Http\Controllers\menu\AboutusController::class, 'aboutUs'])->name('aboutUs');
-Route::post('/admin/dashboard/about-us', [App\Http\Controllers\menu\AboutusController::class, 'aboutUs_content'])->name('aboutUs');
+Route::post('/admin/dashboard/about-us', [App\Http\Controllers\menu\AboutusController::class, 'aboutUs_content']);
 
 Route::get('/admin/dashboard/disclaimer', [App\Http\Controllers\menu\DisclaimerController::class, 'disclaimerPage'])->name('disclaimer.admin.page');
-Route::post('/admin/dashboard/disclaimer', [App\Http\Controllers\menu\DisclaimerController::class, 'disclaimer_content'])->name('disclaimer.admin.page');
+Route::post('/admin/dashboard/disclaimer', [App\Http\Controllers\menu\DisclaimerController::class, 'disclaimer_content']);
 
 Route::get('/admin/dashboard/privacy-policy', [App\Http\Controllers\menu\PrivacyController::class, 'privacyPolicy'])->name('privacyPolicy');
-Route::post('/admin/dashboard/privacy-policy', [App\Http\Controllers\menu\PrivacyController::class, 'privacy_content'])->name('privacyPolicy');
+Route::post('/admin/dashboard/privacy-policy', [App\Http\Controllers\menu\PrivacyController::class, 'privacy_content']);
 
 
 
@@ -56,9 +56,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 /*--------------Admin Panel Route---------------------*/
 Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'dashboardView'])->name('admin.dashboard')->middleware('is_admin');
 Route::get('/admin/change-password', [App\Http\Controllers\Admin\DashboardController::class, 'changePassword_Page'])->name('change.password')->middleware('is_admin');
-Route::post('/admin/change-password', [App\Http\Controllers\Admin\DashboardController::class, 'changePassword_update'])->name('change.password')->middleware('is_admin');
+Route::post('/admin/change-password', [App\Http\Controllers\Admin\DashboardController::class, 'changePassword_update'])->middleware('is_admin');
 Route::get('/admin/site-settings', [App\Http\Controllers\Admin\SettingsController::class, 'settings_Page'])->name('site.settings')->middleware('is_admin');
-Route::post('/admin/site-settings', [App\Http\Controllers\Admin\SettingsController::class, 'settings_Update'])->name('site.settings')->middleware('is_admin');
+Route::post('/admin/site-settings', [App\Http\Controllers\Admin\SettingsController::class, 'settings_Update'])->middleware('is_admin');
 Route::get('/admin/all-notice', [App\Http\Controllers\Admin\NoticeController::class, 'all_notice'])->name('all.notice')->middleware('is_admin');
 Route::get('/admin/loginfo/{id}', [App\Http\Controllers\UserLogController::class, 'index'])->name('user.loginfo')->middleware('is_admin');
 
@@ -82,23 +82,30 @@ Route::get('/admin/dashboard/member-edit/{id}', [App\Http\Controllers\Admin\Memb
 
 Route::get('/admin/dashboard/memberedit/request/view/{id}', [App\Http\Controllers\Admin\MemberController::class, 'loanmember_EditRequestView'])->name('member.edit.request.view');
 Route::post('/admin/dashboard/memberedit/{id}', [App\Http\Controllers\Admin\MemberController::class, 'loanmember_EditByAdminPost'])->name('member.edit.by.admin');
+
 Route::get('/admin/dashboard/memberedit/request/aprove/{id}', [App\Http\Controllers\Admin\MemberController::class, 'loanmember_EditRequestAprove'])->name('member.edit.request.aprove');
+
 Route::get('/admin/dashboard/memberedit/request/reject/{id}', [App\Http\Controllers\Admin\MemberController::class, 'loanmember_EditRequestRejected'])->name('member.edit.request.reject');
+
 Route::get('/admin/dashboard/view-member-profile/{id}', [App\Http\Controllers\Admin\MemberController::class, 'MemberView'])->name('member.view.profile');
+
 Route::get('/admin/dashboard/member-delete/{id}', [App\Http\Controllers\Admin\MemberController::class, 'MemberDelete'])->name('member.delete');
-Route::get('/admin/dashboard/member-loan-approve/{id}', [App\Http\Controllers\Admin\MemberController::class, 'MemberLoanApprove'])->name('member.loan.approve');
-Route::get('/admin/dashboard/member-loan-rejected/{id}', [App\Http\Controllers\Admin\MemberController::class, 'MemberLoanRejected'])->name('member.loan.rejected');
+
+Route::get('/admin/dashboard/member-loan-approve/{id}', [App\Http\Controllers\Admin\MemberController::class, 'MemberLoanApprove']);
+
+
+Route::get('/admin/dashboard/member-loan-rejected/{id}', [App\Http\Controllers\Admin\MemberController::class, 'MemberLoanRejected']);
 
 
 
 
 
 /*--===============Profile List Route===============--*/
-Route::get('/admin/dashboard/all-manager-profile', [App\Http\Controllers\Admin\ManagerProfileController::class, 'allManager'])->name('all.manager.profile');
+Route::get('/admin/dashboard/all-manager-profile', [App\Http\Controllers\Admin\ManagerProfileController::class, 'allManager']);
 
-Route::get('/admin/dashboard/all-loan-officer-profile', [App\Http\Controllers\Admin\OfficerProfileController::class, 'allOfficer'])->name('all.officer.profile');
+Route::get('/admin/dashboard/all-loan-officer-profile', [App\Http\Controllers\Admin\OfficerProfileController::class, 'allOfficer']);
 
-Route::get('/admin/dashboard/all-rejected-profile', [App\Http\Controllers\Admin\RejectedProfileController::class, 'rejectedProfile'])->name('all.rejected.profile');
+Route::get('/admin/dashboard/all-rejected-profile', 'RejectedProfileController@rejectedProfile');
 
 /*-------------------Admin Panel Route End Here----------------------*/
 
@@ -111,66 +118,60 @@ Route::get('/admin/dashboard/all-rejected-profile', [App\Http\Controllers\Admin\
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--------------------Loan Manager Route Start ----------------------------*/
-Route::get('/home/create-loan-officer', [App\Http\Controllers\Manager\ManagerController::class, 'create'])->name('create.loan.officer');
-Route::post('/home/create-loan-officer', [App\Http\Controllers\Manager\ManagerController::class, 'create_loan_officer'])->name('create.loan.officer');
-Route::get('/home/create-loan-officer/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loan_officer_edit'])->name('edit.loan.officer');
-Route::post('/home/create-loan-officer/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loan_officer_update'])->name('edit.loan.officer');
-Route::get('/home/loan-member-list', [App\Http\Controllers\Manager\ManagerController::class, 'loanMemberList'])->name('loan.member.list');
-Route::get('/home/member-profile-view/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'memberProfileView'])->name('member.profile-view');
+Route::get('/home/create-loan-officer', [App\Http\Controllers\Manager\ManagerController::class, 'create']);
 
-Route::get('/home/loan-approve/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanApprove'])->name('loan.approve');
-Route::post('/home/loan-rejected/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanRejected'])->name('loan.rejected');
-Route::get('/home/loan-member/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanmember_Edit'])->name('loan.member.edit');
-Route::post('/home/loan-member/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanmember_UpdateRequest'])->name('loan.member.update.request');
+Route::post('/home/create-loan-officer', [App\Http\Controllers\Manager\ManagerController::class, 'create_loan_officer']);
 
-Route::get('/home/manager/profile-settings', [App\Http\Controllers\Manager\ProfileSettingsController::class, 'profile_form'])->name('manager.profile.settings');
-Route::post('/home/manager/profile-settings', [App\Http\Controllers\Manager\ProfileSettingsController::class, 'profile_change'])->name('manager.profile.settings');
-Route::get('/home/manager/print-single-user/{id}', [App\Http\Controllers\Manager\PrintController::class, 'singleUser_print'])->name('print.single.user');
+Route::get('/home/create-loan-officer/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loan_officer_edit']);
+
+Route::post('/home/create-loan-officer/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loan_officer_update']);
+
+Route::get('/home/loan-member-list', [App\Http\Controllers\Manager\ManagerController::class, 'loanMemberList']);
+
+Route::get('/home/member-profile-view/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'memberProfileView']);
+
+Route::get('/home/loan-approve/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanApprove']);
+
+Route::post('/home/loan-rejected/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanRejected']);
+
+Route::get('/home/loan-member/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanmember_Edit']);
+
+Route::post('/home/loan-member/edit/{id}', [App\Http\Controllers\Manager\ManagerController::class, 'loanmember_UpdateRequest']);
+
+Route::get('/home/manager/profile-settings', [App\Http\Controllers\Manager\ProfileSettingsController::class, 'profile_form']);
+
+Route::post('/home/manager/profile-settings', [App\Http\Controllers\Manager\ProfileSettingsController::class, 'profile_change']);
+
+Route::get('/home/manager/print-single-user/{id}', [App\Http\Controllers\Manager\PrintController::class, 'singleUser_print']);
 /*--------------------Loan Manager Route End ----------------------------*/
 
-
-
-
-
-Route::get('/home/notice/{id}', [App\Http\Controllers\HomeController::class, 'NotificationView'])->name('notification.view');
-
-
-
+Route::get('/home/notice/{id}', [App\Http\Controllers\HomeController::class, 'NotificationView']);
 
 
 /*---------------------Loan Officer Admin Panel Route----------------------------------*/
 
-Route::get('/home/create-user-profile', [App\Http\Controllers\Officer\OfficerController::class, 'userProfile_form'])->name('user.form');
-Route::post('/home/create-user-profile', [App\Http\Controllers\Officer\OfficerController::class, 'userProfile_post'])->name('user.form');
-Route::get('/home/loan-officer-member-list', [App\Http\Controllers\Officer\MemberController::class, 'LoanOfficerMemberList'])->name('loacofficer.member.list');
-Route::get('/home/loan-officer/view-member-profile/{id}', [App\Http\Controllers\Officer\MemberController::class, 'OfficerMemberView'])->name('loanofficer.member.view.profile');
-Route::get('/home/loan-officerdashboard/loan-submit', [App\Http\Controllers\Officer\SmsController::class, 'LoanSubmit'])->name('loan.submit');
+Route::get('/home/create-user-profile', [App\Http\Controllers\Officer\OfficerController::class, 'userProfile_form']);
+
+Route::post('/home/create-user-profile', [App\Http\Controllers\Officer\OfficerController::class, 'userProfile_post']);
+
+Route::get('/home/loan-officer-member-list', [App\Http\Controllers\Officer\MemberController::class, 'LoanOfficerMemberList']);
+
+Route::get('/home/loan-officer/view-member-profile/{id}', [App\Http\Controllers\Officer\MemberController::class, 'OfficerMemberView']);
+
+Route::get('/home/loan-officerdashboard/loan-submit', [App\Http\Controllers\Officer\SmsController::class, 'LoanSubmit']);
 
 // Bad Ace
-Route::get('/home/loan/officer/send-sms/{id}', [App\Http\Controllers\Officer\SmsController::class, 'sendSms'])->name('send.sms');
+Route::get('/home/loan/officer/send-sms/{id}', [App\Http\Controllers\Officer\SmsController::class, 'sendSms']);
 // Bad Ace
 
-Route::get('/home/loan-officer/profile-settings', [App\Http\Controllers\Officer\ProfileSettingsController::class, 'profile_form'])->name('officer.profile.settings');
-Route::post('/home/loan-officer/profile-settings', [App\Http\Controllers\Officer\ProfileSettingsController::class, 'profile_change'])->name('officer.profile.settings');
+Route::get('/home/loan-officer/profile-settings', [App\Http\Controllers\Officer\ProfileSettingsController::class, 'profile_form']);
+
+Route::post('/home/loan-officer/profile-settings', [App\Http\Controllers\Officer\ProfileSettingsController::class, 'profile_change']);
+
 Route::post('/getForminfo', [App\Http\Controllers\Officer\LoanEntryController::class, 'getForminfo']);
-Route::post('/home/loan-officer/loan-entry/', [App\Http\Controllers\Officer\LoanEntryController::class, 'loanEntry'])->name('loan.amount.entry');
-Route::get('/home/loan-officer/loan-recive', [App\Http\Controllers\LoanReciveController::class, 'loanEntry'])->name('loan.amount.entry.form');
+Route::post('/home/loan-officer/loan-entry/', [App\Http\Controllers\Officer\LoanEntryController::class, 'loanEntry']);
+
+Route::get('/home/loan-officer/loan-recive', [App\Http\Controllers\LoanReciveController::class, 'loanEntry']);
 
 /*---------------------Loan Officer Admin Panel Route End Here----------------------------------*/
