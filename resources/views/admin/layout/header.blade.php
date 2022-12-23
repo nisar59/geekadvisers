@@ -11,7 +11,7 @@
         <!-- Super Admin -->
         @if (Auth::user()->is_admin == 1)
             <li>
-                <a class="app-nav__item" href="{{ route('admin.dashboard') }}">
+                <a class="app-nav__item" href="{{ url('admin/dashboard') }}">
                     <span class="app-menu__label">Dashboard</span>
                 </a>
             </li>

@@ -100,9 +100,9 @@ class LoginController extends Controller
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                 if (Auth::user()->is_admin == 1) {
                     //Super Admin
-                    return redirect()->route('admin.dashboard');
+                    return redirect('admin/dashboard');
                 } else {
-                    return redirect()->route('home');
+                    return redirect('home');
                 }
             } else {
                 return redirect()->route('login')->with('error', 'Inavlid Credential');
@@ -113,9 +113,9 @@ class LoginController extends Controller
                 if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
                     if (Auth::user()->is_admin == 1) {
                         //Super Admin
-                        return redirect()->route('admin.dashboard');
+                        return redirect('admin/dashboard');
                     } else {
-                        return redirect()->route('home');
+                        return redirect('home');
                     }
                 } else {
                     return redirect()->route('login')->with('error', 'Inavlid Credential');
