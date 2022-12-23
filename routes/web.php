@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Route::get('/', [App\Http\Controllers\WelcomeController::class, 'welcome']);
+Route::get('/', function()
+{
+return redirect('login');	
+});
 Route::get('all_notice', [App\Http\Controllers\AllNoticeController::class, 'all_notice']);
 Route::get('contact-us', [App\Http\Controllers\ContactController::class, 'contact']);
 Route::get('about-us', [App\Http\Controllers\AboutusController::class, 'about_us']);
