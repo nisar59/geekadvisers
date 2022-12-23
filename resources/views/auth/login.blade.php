@@ -215,7 +215,7 @@
                                             <div class="sup">
                                                 <h5 style="margin-top: 4px;margin-left: 14px;font-size:16px;">
                                                     <i style="color:#e4e912;" class="fa-solid fa-globe"></i>
-                                                    &nbsp;{{ route('welcome') }}
+                                                    &nbsp;{{ url('login') }}
                                                 </h5>
                                             </div>
                                         </div>
