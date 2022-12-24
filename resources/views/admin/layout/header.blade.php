@@ -23,7 +23,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a class="dropdown-item" href="{{ route('list.admin') }}">
+                        <a class="dropdown-item" href="{{ url('admin/list-admin') }}">
                             <i class="fa fa-cog fa-lg"></i>
                             List Admin
 
@@ -40,17 +40,17 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a class="dropdown-item" href="{{ route('all.manager.profile') }}">
+                        <a class="dropdown-item" href="{{ url('admin/dashboard/all-manager-profile') }}">
                             Manager Profile
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{{ route('all.officer.profile') }}">
+                        <a class="dropdown-item" href="{{ url('admin/dashboard/all-loan-officer-profile') }}">
                             Loan Officer Profile
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{{ route('all.rejected.profile') }}">
+                        <a class="dropdown-item" href="{{ url('admin/dashboard/all-rejected-profile') }}">
                             Member Rejected Profile
                         </a>
                     </li>
@@ -59,19 +59,19 @@
             </li>
 
             <li>
-                <a class="app-nav__item" href="{{ route('all.member.list') }}">
+                <a class="app-nav__item" href="{{ url('admin/dashboard/all-member-list') }}">
                     <span class="app-menu__label">Member List</span>
                 </a>
             </li>
 
             <li>
-                <a class="app-nav__item" href="{{ route('all.edit.request.member') }}">
+                <a class="app-nav__item" href="{{ url('admin/dashboard/member-edit/list') }}">
                     <span class="app-menu__label">All Edit Request</span>
                 </a>
             </li>
 
             <li>
-                <a class="app-nav__item" href="{{ route('site.settings') }}">
+                <a class="app-nav__item" href="{{ url('admin/site-settings') }}">
                     <span class="app-menu__label">Settings</span>
                 </a>
             </li>
@@ -79,7 +79,7 @@
 
             {{-- Notification --}}
             <li class="dropdown">
-                <a href="{{ route('all.edit.request.member') }}" aria-label="Open Profile Menu"
+                <a href="{{ url('admin/dashboard/member-edit/list') }}" aria-label="Open Profile Menu"
                     style="line-height: 33px;" class="btn btn-primary" data-toggle="dropdown">
                     Notifications <span
                         class="badge bg-secondary">{{ count(SuperAdminNotification()) + count(Notification()) }}</span>
@@ -120,24 +120,24 @@
         <!-- Notice Admin -->
         @if (Auth::user()->is_admin == 4)
             <li>
-                <a class="app-nav__item" href="{{ route('home') }}">
+                <a class="app-nav__item" href="{{ url('home') }}">
                     <span class="app-menu__label">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a class="app-nav__item" href="{{ route('all.member.list') }}">
+                <a class="app-nav__item" href="{{ url('admin/dashboard/all-member-list') }}">
                     <span class="app-menu__label">Member List</span>
                 </a>
             </li>
             <li>
-                <a class="app-nav__item" href="{{ route('notice.create') }}">
+                <a class="app-nav__item" href="{{ url('create-notice') }}">
                     <span class="app-menu__label">Add Notice</span>
                 </a>
             </li>
 
             {{-- Notification --}}
             <li class="dropdown">
-                <a href="{{ route('all.edit.request.member') }}" aria-label="Open Profile Menu"
+                <a href="{{ url('admin/dashboard/member-edit/list') }}" aria-label="Open Profile Menu"
                     style="line-height: 33px;" class="btn btn-primary" data-toggle="dropdown">
                     Notifications <span class="badge bg-secondary">{{ count(NoticeAdminNotification()) }}</span>
                 </a>
@@ -166,31 +166,31 @@
         <!-- Manager -->
         @if (Auth::user()->is_admin == 2)
             <li>
-                <a class="app-nav__item" href="{{ route('home') }}">
+                <a class="app-nav__item" href="{{ url('home') }}">
                     <span class="app-menu__label">Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a class="app-nav__item" href="{{ route('create.loan.officer') }}">
+                <a class="app-nav__item" href="{{ url('home/create-loan-officer') }}">
                     <span class="app-menu__label">Add Loan Officer</span>
                 </a>
             </li>
 
             <li>
-                <a class="app-nav__item" href="{{ route('loan.member.list') }}">
+                <a class="app-nav__item" href="{{ url('home/loan-member-list') }}">
                     <span class="app-menu__label">Member List</span>
                 </a>
             </li>
             <li>
-                <a class="app-nav__item" href="{{ route('manager.profile.settings') }}">
+                <a class="app-nav__item" href="{{ url('home/manager/profile-settings') }}">
                     <span class="app-menu__label">Profile Settings</span>
                 </a>
             </li>
 
             {{-- Notification --}}
             <li class="dropdown">
-                <a href="{{ route('all.edit.request.member') }}" aria-label="Open Profile Menu"
+                <a href="{{ url('admin/dashboard/member-edit/list') }}" aria-label="Open Profile Menu"
                     style="line-height: 33px;" class="btn btn-primary" data-toggle="dropdown">
                     Notifications
                     <span class="badge bg-secondary">
@@ -221,26 +221,26 @@
         <!-- Loan Officer -->
         @if (Auth::user()->is_admin == 3)
             <li>
-                <a class="app-nav__item" href="{{ route('home') }}">
+                <a class="app-nav__item" href="{{ url('home') }}">
                     <span class="app-menu__label">Dashboard</span>
                 </a>
             </li>
 
             <li>
-                <a class="app-nav__item" href="{{ route('user.form') }}">
+                <a class="app-nav__item" href="{{ url('home/create-user-profile') }}">
                     <span class="app-menu__label">Form</span>
                 </a>
             </li>
 
 
             <li>
-                <a class="app-nav__item" href="{{ route('loacofficer.member.list') }}">
+                <a class="app-nav__item" href="{{ url('home/loan-officer-member-list') }}">
                     <span class="app-menu__label">Member List</span>
                 </a>
             </li>
 
             <li>
-                <a class="app-nav__item" href="{{ route('loan.amount.entry.form') }}">
+                <a class="app-nav__item" href="{{ url('home/loan-officer/loan-recive') }}">
                     <span class="app-menu__label">Recived Ammount</span>
                 </a>
             </li>
@@ -248,7 +248,7 @@
 
 
             <li>
-                <a class="app-nav__item" href="{{ route('officer.profile.settings') }}">
+                <a class="app-nav__item" href="{{ url('home/loan-officer/profile-settings') }}">
                     <span class="app-menu__label">Profile Settings</span>
                 </a>
             </li>
@@ -256,7 +256,7 @@
 
             {{-- Notification --}}
             <li class="dropdown">
-                <a href="{{ route('all.edit.request.member') }}" aria-label="Open Profile Menu"
+                <a href="{{ url('admin/dashboard/member-edit/list') }}" aria-label="Open Profile Menu"
                     style="line-height: 33px;" class="btn btn-primary" data-toggle="dropdown">
                     Notifications <span
                         class="badge bg-secondary">{{ count(OfficerNotification(Auth::user()->id)) }}</span>
