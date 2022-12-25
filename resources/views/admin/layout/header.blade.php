@@ -3,7 +3,9 @@
 </style>
 <header class="app-header">
 
-    <a class="app-header__logo" href="#">Bfss-Ltd</a>
+    <a class="app-header__logo" href="{{url('/')}}">
+        <img src="{{url('uploads/logo/'.settings()->panel_logo)}}" alt="" style="height:50px; width: 100%;">
+    </a>
 
 
     <ul class="app-nav">

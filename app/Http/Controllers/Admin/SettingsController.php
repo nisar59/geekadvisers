@@ -22,6 +22,7 @@ class SettingsController extends Controller{
     public function settings_Update(Request $request){
 
         $settings = [];
+
         if ($request->hasFile('site_logo')) {
             $image = $request->file('site_logo');
             $ext = $image->extension();
@@ -29,6 +30,15 @@ class SettingsController extends Controller{
             $image->move('uploads/logo', $file);
             $settings['site_logo'] = $file;
         }
+
+        if ($request->hasFile('panel_logo')) {
+            $image = $request->file('panel_logo');
+            $ext = $image->extension();
+            $file = time() . '.' . $ext;
+            $image->move('uploads/logo', $file);
+            $settings['panel_logo'] = $file;
+        }
+
 
         if ($request->hasFile('fb_page_img')) {
             $image = $request->file('fb_page_img');
