@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
-
+use DataTables;
 class ListAdminController extends Controller
 {
 
@@ -20,8 +20,55 @@ class ListAdminController extends Controller
 
     public function listadmin_Page()
     {
-        $data = DB::table('users')->get();
-        return view('admin.list-admin', ['data' => $data]);
+
+        $req = request();
+        if ($req->ajax()) {
+          $strt   = $req->start;
+          $length = $req->length;
+
+          $users=DB::table('users');
+
+          $total = $users->count();
+          $users   = $users->offset($strt)->limit($length)->get();
+
+          return DataTables::of($users)
+            ->setOffset($strt)
+            ->with([
+              "recordsTotal"    => $total,
+              "recordsFiltered" => $total,
+            ])
+            ->addColumn('action', function ($row) {
+              return '<a href="' . url('admin/list-admin/' . $row->id.'/edit') . '" class="btn btn-info">Edit <i class="fa fa-edit"></i></a>
+                      <a href="' . url('admin/list-admin/' . $row->id.'/delete') . '" class="btn btn-danger">Delete <i class="fa fa-edit"></i></a>';
+            })
+
+            ->addColumn('loginfo', function ($row) {
+              return '<a href="' . url('admin/list-admin/' . $row->id.'/edit') . '" class="btn btn-info">Login Info <i class="fa fa-edit"></i></a>';
+            })
+
+            ->editColumn('id', function ($row) {
+              return $row->id;
+            })
+            ->editColumn('name', function ($row) {
+              return $row->name;
+            })
+            ->editColumn('email', function ($row) {
+              return $row->email;
+            })
+            ->addColumn('is_admin', function ($row) {
+              $role='';
+              if($row->is_admin==1){$role='Super Admin';}
+              if($row->is_admin==2){$role='Loan Manager <br> <b>(Branch Name: '.$row->manager_branch.')</b>';}
+              if($row->is_admin==3){$role='Loan Manager <br> <b>(Under: '.$row->manager_branch.' Branch)</b>';}
+              if($row->is_admin==4){$role='Notice Admin';}
+              return $role;
+            })
+            ->rawColumns(['is_admin','loginfo','action'])
+            ->make(true);
+        }
+
+
+        return view('admin.list-admin');
     }
 
 
@@ -81,7 +128,7 @@ class ListAdminController extends Controller
         if ($request->password) {
             $request->validate(
                 [
-                    'password'        => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
+                'password' => ['required', Password::min(8)->letters()->mixedCase()->numbers()->symbols()->uncompromised()],
                 ]
             );
 
