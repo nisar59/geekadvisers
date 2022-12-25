@@ -70,8 +70,7 @@ class MemberController extends Controller
               return '<button type="button" class="btn btn-success">Approved</button>';
               }
               elseif($row->status==3){
-              return '<button type="button" class="btn btn-danger">Rejected</button><br>
-                    <a href="' . url('admin/dashboard/all-member-list/' . $row->id.'/edit') . '"><i class="fas fa-sync"></i></a> ';
+              return '<button type="button" class="btn btn-danger">Rejected</button><br>';
               }
               else{
               return '<button type="button" class="btn btn-info">Pending</button>';

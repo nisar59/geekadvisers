@@ -77,7 +77,7 @@
                     <a>
                         {{ $notification->n_type }}
                     </a>
-                    <a href="{{ route('notification.view', $notification->id) }}">
+                    <a href="{{ url('home/notice/'.$notification->id) }}">
                         View
                     </a>
                 </li>
@@ -87,7 +87,7 @@
                     <a>
                         Edit Request
                     </a>
-                    <a href="{{ route('member.edit.request.view', $item->id) }}">
+                    <a href="{{ url('admin/dashboard/memberedit/request/view/'.$item->id) }}">
                         View ({{ count(Notification()) }})
                     </a>
                 </li>
@@ -126,7 +126,7 @@
                     <a>
                         {{ $notification->n_type }}
                     </a>
-                    <a href="{{ route('notification.view', $notification->id) }}">
+                    <a href="{{ url('/home/notice/'.$notification->id) }}">
                         View
                     </a>
                 </li>
@@ -173,7 +173,7 @@
                     <a>
                         {{ $notification->n_type }}
                     </a>
-                    <a href="{{ route('notification.view', $notification->id) }}">
+                    <a href="{{ url('/home/notice/'.$notification->id) }}">
                         View
                     </a>
                 </li>
@@ -202,7 +202,7 @@
         </li>
         <li>
             <a class="app-nav__item" href="{{ url('home/loan-officer/loan-recive') }}">
-                <span class="app-menu__label">Recived Ammount</span>
+                <span class="app-menu__label">Recived Amount</span>
             </a>
         </li>
         <li>
@@ -223,7 +223,7 @@
                     <a>
                         {{ $notification->n_type }}
                     </a>
-                    <a href="{{ route('notification.view', $notification->id) }}">
+                    <a href="{{ url('/home/notice/'.$notification->id) }}">
                         View
                     </a>
                 </li>

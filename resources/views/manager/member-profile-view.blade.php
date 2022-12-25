@@ -268,12 +268,12 @@
                         <td>
                             @if ($data->status == 1 || $data->status == 2)
                                 <button disabled class="btn btn-success"
-                                    href="{{ route('loan.approve', $data->id) }}">Already Approve&nbsp;<i
+                                    href="{{ url('home/loan-approve/'.$data->id) }}">Already Approve&nbsp;<i
                                         class="fa-solid fa-check"></i></button>
                             @elseif($data->status == 3)
                                 <button disabled="" class="btn btn-danger" type="button">Rejected</button>
                             @else
-                                <a href="{{ route('loan.approve', $data->id) }}"
+                                <a href="{{ url('home/loan-approve/'.$data->id) }}"
                                     onclick="return confirm('Are you Sure?')"><button class="btn btn-primary"
                                         type="button">Approve Loan</button></a>
 
@@ -300,7 +300,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('loan.rejected', $data->id) }}" method="POST">
+                        <form action="{{ url('/admin/dashboard/member-loan-rejected/'.$data->id) }}" method="POST">
                             @csrf
                             <input type="text" class="form-control mb-3" name="rejected_reason"
                                 placeholder="Enter Reason">
