@@ -55,7 +55,7 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ route('member.edit.request.view', $data->id) }}"
+                                            <a href="{{ url('admin/dashboard/memberedit/request/view/{id}') }}"
                                                 class="btn btn-info">View&nbsp;
                                                 <i class="fa-solid fa-eye"></i>
                                             </a>
