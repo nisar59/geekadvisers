@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="tile" style="border-top: 3px solid #009688;border-radius: 13px 13px 0px 0px;">
                     <div class="tile-body">
-                        <table class="table table-hover table-bordered" id="sampleTable">
+                        <table class="table table-hover table-bordered" id="dt-table">
                             <thead>
                                 <tr>
                                     <th>Form ID</th>
@@ -28,54 +28,8 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                @foreach ($data as $data)
-                                    <tr>
-                                        <td>{{ $data->form_id }}</td>
-                                        <td>
-                                            <img src="{{ asset('uploads/loan_profile/').'/'.$data->loan_owner_image }}"style="width: 78px;height: 78px;">
-                                        </td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->loan_owner_branch }}</td>
-                                        <td>
-                                            {{ $data->loan_amount }}
-                                            @php
-                                                $loan_entry = $data->loan_amount - $data->loan_entry;
-                                            @endphp
-                                            @if ($data->loan_entry)
-                                                <p>Loan Amount: <b>{{ $data->loan_amount }}</b> </p>
-                                                <p>Loan Entry: <b>{{ $data->loan_entry }}</b></p>
-                                                <p>Due Amount: <b>({{ $data->loan_amount }} - {{ $data->loan_entry }})</b>
-                                                </p>={{ $data->loan_amount - $data->loan_entry }}
-                                            @endif
+                           
 
-                                        </td>
-
-                                        <td>
-                                            <a href="{{ route('loanofficer.member.view.profile', $data->id) }}"
-                                                class="btn btn-info">View&nbsp;
-                                                <i class="fa-solid fa-eye"></i>
-                                            </a>
-                                        </td>
-
-                                        <td>
-                                            @if ($data->status == 2)
-                                                <button class="btn btn-success">
-                                                    Approve&nbsp;
-                                                    <i class="fa-solid fa-check"></i>
-                                                </button>
-                                            @elseif($data->status == 3)
-                                                <button class="btn btn-danger">
-                                                    Rejected&nbsp;
-                                                </button>
-                                            @else
-                                                <button class="btn btn-danger">Pending</button>
-                                            @endif
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
 
                         </table>
                     </div>
@@ -83,10 +37,34 @@
             </div>
         </div>
     </main>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script></script>
-
-
-
-
+@endsection
+@section('js')
+<script>
+$(document).ready(function(){
+var dt_table=null;
+function dt_datatable(data={}) {
+console.log(data);
+dt_table=$("#dt-table").DataTable({
+processing:true,
+serverSide: true,
+select:true,
+paging:true,
+ajax: {
+url:"{{ url('home/loan-officer-member-list') }}",
+data:data,
+},
+columns: [
+{data: 'form_id', name: 'form_id'},
+{data: 'image', name: 'image',orderable: false, searchable: false},
+{data: 'name', name: 'name'},
+{data: 'loan_owner_branch', name: 'loan_owner_branch'},
+{data: 'loan_amount', name: 'loan_amount'},
+{data: 'view', name: 'view', orderable: false, searchable: false},
+{data: 'status', name: 'status', orderable: false, searchable: false, class: 'text-center'},
+],
+});
+}
+dt_datatable();
+});
+</script>
 @endsection
