@@ -2,7 +2,7 @@
 
 use App\Models\user_loan_profile;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\CarbonPeriod;
 function Notification(){
     return DB::table('lon_edit_requests')->whereNull('deleted_at')->where('seenstatus', 'unseen')->get();
 }
@@ -62,4 +62,34 @@ function NoticeAdminNotification(){
 
 function LoanInfoById($id){
     return DB::table('user_loan_profiles')->where('id', $id)->first();
+}
+
+
+function Days()
+{
+    $days=[];
+ for($i=1; $i<=31; $i++){
+    $days[]=$i;
+ }
+return $days;
+}
+
+function Months()
+{
+    $months=[];
+   for ($m=1; $m<=12; $m++) {
+     $months[] = date('F', mktime(0,0,0,$m, 1, date('Y')));
+}
+return $months;
+}
+
+function Years()
+{
+   
+    $years=[];
+ for($i=1924; $i<=now()->format('Y'); $i++){
+    $years[]=$i;
+ }
+
+  return $years;
 }
