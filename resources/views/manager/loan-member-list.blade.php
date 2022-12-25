@@ -40,15 +40,15 @@
                                         <td>{{ $data->name }}</td>
 
                                         <td>
-                                            <a href="{{ route('member.profile-view', $data->id) }}"
+                                            <a href="{{ url('home/member-profile-view/{id}') }}"
                                                 class="btn btn-info">View&nbsp;<i class="fa-solid fa-eye"></i></a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('loan.member.edit', $data->id) }}"
+                                            <a href="{{ url('home/loan-member/edit/{id}') }}"
                                                 class="btn btn-primary">Edit&nbsp;<i class="fa-solid fa-pen"></i></a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('print.single.user', $data->id) }}"
+                                            <a href="{{ url('home/manager/print-single-user/{id}') }}"
                                                 onclick="return confirm('Are you Sure?')"><button class="btn btn-secondary"
                                                     type="button">Print&nbsp;<i class="fa-solid fa-print"></i></button>
                                         </td>

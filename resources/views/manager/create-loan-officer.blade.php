@@ -86,7 +86,7 @@
                             <td>{{$data->phone}}</td>
                             <td>{{$data->manager_branch}}</td>
                             <td>
-                                <a href="{{route('edit.loan.officer', $data->id)}}" class="btn btn-info">Edit&nbsp;<i class="fa-solid fa-pen"></i></a>
+                                <a href="{{url('home/create-loan-officer/edit/{id}')}}" class="btn btn-info">Edit&nbsp;<i class="fa-solid fa-pen"></i></a>
                             </td>
                         </tr>
                     @endforeach
