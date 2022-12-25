@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class MemberController extends Controller
 {
@@ -20,13 +21,77 @@ class MemberController extends Controller
 
     public function allMemberList()
     {
+        $req = request();
+        if ($req->ajax()) {
+          $strt   = $req->start;
+          $length = $req->length;
+
         $status = ["1","2"];
-        try {
-            $data = DB::table('user_loan_profiles')->whereNull('deleted_at')->whereIn("status",$status)->latest()->get();
-            return view('admin.all-member-list', ['data' => $data]);
-        } catch (Exception $e) {
-            return back()->with('error', 'Oops! Something Went Wrong');
+        
+        $members = DB::table('user_loan_profiles')->whereNull('deleted_at');
+
+          $total = $members->count();
+          $members = $members->offset($strt)->limit($length)->get();
+
+          return DataTables::of($members)
+            ->setOffset($strt)
+            ->with([
+              "recordsTotal"    => $total,
+              "recordsFiltered" => $total,
+            ])
+            ->addColumn('action', function ($row) {
+              return '<a href="' . url('/admin/dashboard/member-edit/' . $row->id) . '" class="btn btn-info">Edit <i class="fa fa-edit"></i></a>
+                      <a href="' . url('admin/list-admin/' . $row->id.'/delete') . '" class="btn btn-danger">Delete <i class="fa fa-edit"></i></a>';
+            })
+
+            ->editColumn('form_id', function ($row) {
+              return $row->form_id;
+            })
+            ->addColumn('image', function ($row) {
+             return '<img src="'.url('uploads/loan_profile/'. $row->loan_owner_image).'"style="width: 78px;height: 78px;">';
+            })
+            ->editColumn('name', function ($row) {
+              return $row->name;
+            })
+            ->editColumn('loan_owner_branch', function ($row) {
+              return $row->loan_owner_branch;
+            })      
+            ->editColumn('loan_amount', function ($row) {
+              return $row->loan_amount;
+            }) 
+            ->addColumn('view', function ($row) {
+              return '<a href="' . url('home/loan-officer/view-member-profile/' . $row->id) . '" class="btn btn-primary">View <i class="fa fa-edit"></i></a>';
+            })
+
+
+            ->addColumn('status', function ($row) {
+              
+              if($row->status==2){
+              return '<button type="button" class="btn btn-success">Approved</button>';
+              }
+              elseif($row->status==3){
+              return '<button type="button" class="btn btn-danger">Rejected</button><br>
+                    <a href="' . url('admin/dashboard/all-member-list/' . $row->id.'/edit') . '"><i class="fas fa-sync"></i></a> ';
+              }
+              else{
+              return '<button type="button" class="btn btn-info">Pending</button>';
+              }
+
+              return '<button type="button" class="btn btn-danger">'.$sts.'</button>';
+            })
+            ->addColumn('print', function ($row) {
+              return '<a href="' . url('home/manager/print-single-user/' . $row->id) . '" class="btn btn-dark">Print <i class="fa fa-print"></i></a>';
+            })
+
+
+            ->rawColumns(['image','view','status','print','action'])
+            ->make(true);
         }
+
+
+
+    return view('admin.all-member-list');
+        
     }
 
 

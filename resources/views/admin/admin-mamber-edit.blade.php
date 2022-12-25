@@ -21,7 +21,7 @@
 
                     <!---Error Message--->
                     <div class="tile-body">
-                        <form action="{{ route('member.edit.by.admin', $data->id) }}" class="row" method="POST"
+                        <form action="{{ url('admin/dashboard/memberedit/{id}') }}" class="row" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="{{ $data->id }}">
