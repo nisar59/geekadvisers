@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-
+use DataTables;
 class ManagerController extends Controller
 {
 
@@ -111,9 +111,61 @@ class ManagerController extends Controller
     /*-------Loan Member List--------*/
     public function loanMemberList()
     {
-        $manager_id = Auth::user()->id;
-        $data = DB::table('user_loan_profiles')->whereNull('deleted_at')->where('manager_id', $manager_id)->get();
-        return view('manager.loan-member-list', ['data' => $data]);
+      $req = request();
+        if ($req->ajax()) {
+          $strt   = $req->start;
+          $length = $req->length;
+
+        $status = ["1","2"];
+        
+           $manager_id = Auth::user()->id;
+           $members = DB::table('user_loan_profiles')->whereNull('deleted_at')->where('manager_id', $manager_id);
+          $total = $members->count();
+          $members = $members->offset($strt)->limit($length)->get();
+
+          return DataTables::of($members)
+            ->setOffset($strt)
+            ->with([
+              "recordsTotal"    => $total,
+              "recordsFiltered" => $total,
+            ])
+            ->editColumn('id', function ($row) {
+              return $row->id;
+            })
+            ->addColumn('image', function ($row) {
+             return '<img src="'.url('uploads/loan_profile/'. $row->loan_owner_image).'"style="width: 78px;height: 78px;">';
+            })
+            ->editColumn('name', function ($row) {
+              return $row->name;
+            })
+            ->addColumn('view', function ($row) {
+              return '<a href="' . url('home/loan-officer/view-member-profile/' . $row->id) . '" class="btn btn-primary">View <i class="fa fa-eye"></i></a>';
+            })
+            ->addColumn('edit', function ($row) {
+              return '<a href="' . url('home/loan-officer/view-member-profile/' . $row->id) . '" class="btn btn-primary">Edit <i class="fa fa-edit"></i></a>';
+            })
+            ->addColumn('print', function ($row) {
+              return '<a href="' . url('home/manager/print-single-user/' . $row->id) . '" class="btn btn-dark">Print <i class="fa fa-print"></i></a>';
+            })
+
+            ->addColumn('status', function ($row) {
+              
+              if($row->status==2){
+              return '<button type="button" class="btn btn-success">Approved</button>';
+              }
+              elseif($row->status==3){
+              return '<button type="button" class="btn btn-danger">Rejected</button><br>';
+              }
+              else{
+              return '<button type="button" class="btn btn-info">Pending</button>';
+              }
+
+              return '<button type="button" class="btn btn-danger">'.$sts.'</button>';
+            })
+            ->rawColumns(['image','view','edit','print','status'])
+            ->make(true);
+        }
+         return view('manager/loan-member-list');
     }
 
 
