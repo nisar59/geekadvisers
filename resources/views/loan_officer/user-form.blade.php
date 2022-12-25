@@ -22,7 +22,7 @@
                         <div class="form-group col-md-3">
                             <label class="control-label" style="font-weight:bold;">Name of loan customer ( In English
                             ):&nbsp;<sup style="color:red">*</sup> </label>
-                            <input required="" type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" name="name"
+                            <input required="" type="text" class="form-control" value="{{old('name')}}" name="name"
                             placeholder="Name of loan customer">
                         </div>
                         <div class="form-group col-md-3">
@@ -48,7 +48,7 @@
                                 Father's name ( In English ):&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input required="" type="text" onkeydown="return /[a-z]/i.test(event.key)" class="form-control" name="fathers_name"
+                            <input required="" type="text"  class="form-control" name="fathers_name"
                             placeholder="Father's name">
                         </div>
                         <div class="form-group col-md-4">
@@ -67,7 +67,7 @@
                             <label class="control-label" style="font-weight:bold;">Mother's name ( In English ) :&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input required="" onkeydown="return /[a-z]/i.test(event.key)" type="text" class="form-control" name="mothers_name"
+                            <input required=""  type="text" class="form-control" name="mothers_name"
                             placeholder="Mother's name">
                         </div>
                         <div class="form-group col-md-4">
@@ -195,7 +195,7 @@
                                 Granter Name : ( In English ):&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input required="" type="text" onkeydown="return /[a-z]/i.test(event.key)" class="form-control" name="granter_name"
+                            <input required="" type="text"  class="form-control" name="granter_name"
                             placeholder="Granter Name">
                         </div>
                         <div class="form-group col-md-3">
@@ -223,7 +223,7 @@
                                 Father's name ( In English ):&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input required="" type="text" onkeydown="return /[a-z]/i.test(event.key)" class="form-control" name="granter_fathers_name"
+                            <input required="" type="text"  class="form-control" name="granter_fathers_name"
                             placeholder="Father's name">
                         </div>
                         <div class="form-group col-md-4">
@@ -232,7 +232,7 @@
                                 :&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input required="" type="text" onkeydown="return /[a-z]/i.test(event.key)" class="form-control" name="granter_mothers_name"
+                            <input required="" type="text"  class="form-control" name="granter_mothers_name"
                             placeholder="Mother's name" required="">
                         </div>
                         <div class="form-group col-md-4">
@@ -349,7 +349,7 @@
                                 Granter Name : ( In English ):&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input required="" type="text" onkeydown="return /[a-z]/i.test(event.key)" class="form-control" name="granter_2_name"
+                            <input required="" type="text"  class="form-control" name="granter_2_name"
                             placeholder="Granter Name">
                         </div>
                         <div class="form-group col-md-3">
@@ -377,7 +377,7 @@
                                 Father's name ( In English ):&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input required="" type="text" onkeydown="return /[a-z]/i.test(event.key)" class="form-control" name="granter_2_fathers_name"
+                            <input required="" type="text"  class="form-control" name="granter_2_fathers_name"
                             placeholder="Father's name">
                         </div>
                         <div class="form-group col-md-4">
@@ -385,7 +385,7 @@
                                 Mother's name ( In English ):&nbsp;
                                 <sup style="color:red">*</sup>
                             </label>
-                            <input type="text" onkeydown="return /[a-z]/i.test(event.key)" class="form-control" name="granter_2_mothers_name"
+                            <input type="text"  class="form-control" name="granter_2_mothers_name"
                             placeholder="Mother's name" required="">
                         </div>
                         <div class="form-group col-md-4">
@@ -603,7 +603,7 @@ function readBackImg(input) {
             let did = $(this).val();
             //   alert(did);
             $.ajax({
-                url: '<?php echo url(' / getUpazila '); ?>',
+                url: '<?php echo url('/getUpazila'); ?>',
                 type: 'post',
                 data: 'did=' + did + '&_token={{ csrf_token() }}',
                 success: function(result) {
@@ -615,7 +615,7 @@ function readBackImg(input) {
             let uid = $(this).val();
             //alert(uid);
             $.ajax({
-                url: '<?php echo url(' / getUnions '); ?>',
+                url: '<?php echo url('/getUnions'); ?>',
                 type: 'post',
                 data: 'uid=' + uid + '&_token={{ csrf_token() }}',
                 success: function(result) {
@@ -630,7 +630,7 @@ function readBackImg(input) {
         let did = $(this).val();
         //   alert(did);
         $.ajax({
-            url: '<?php echo url(' / getgranterUpazila '); ?>',
+            url: '<?php echo url('/getgranterUpazila'); ?>',
             type: 'post',
             data: 'did=' + did + '&_token={{ csrf_token() }}',
             success: function(result) {
@@ -642,7 +642,7 @@ function readBackImg(input) {
         let uid = $(this).val();
         //alert(uid);
         $.ajax({
-            url: '<?php echo url(' / getgranterUnions '); ?>',
+            url: '<?php echo url('/getgranterUnions'); ?>',
             type: 'post',
             data: 'uid=' + uid + '&_token={{ csrf_token() }}',
             success: function(result) {
@@ -655,7 +655,7 @@ function readBackImg(input) {
         let did = $(this).val();
         //   alert(did);
         $.ajax({
-            url: '<?php echo url(' / getgranterTwoUpazila '); ?>',
+            url: '<?php echo url('/getgranterTwoUpazila'); ?>',
             type: 'post',
             data: 'did=' + did + '&_token={{ csrf_token() }}',
             success: function(result) {
@@ -667,7 +667,7 @@ function readBackImg(input) {
         let uid = $(this).val();
         //alert(uid);
         $.ajax({
-            url: '<?php echo url(' / getgranterTwoUnions '); ?>',
+            url: '<?php echo url('/getgranterTwoUnions '); ?>',
             type: 'post',
             data: 'uid=' + uid + '&_token={{ csrf_token() }}',
             success: function(result) {

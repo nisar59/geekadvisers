@@ -44,7 +44,7 @@ class OfficerController extends Controller
         $manager_id = Auth::user()->manager_id;
         $manager_branch = Auth::user()->manager_branch;
 
-        try {
+        /*try {*/
             $loan = [];
             $loan['chk_img']   = null;
             $loan['status']                     = '0';
@@ -148,6 +148,14 @@ class OfficerController extends Controller
                 }
 
                 DB::table('user_loan_profiles')->where('id', $dataId)->update($loan);
+
+                DB::table('loans')->insert([
+                    'user_id'=>$dataId,
+                    'loan_amount'=>$req->loan_amount,
+                    'loan_installments'=>$req->loan_installments,
+                    'per_installment_amount'=>$req->per_installment_amount,
+                    'due_amount'=>$loan_amount,
+                ]);
             }
 
 
@@ -167,9 +175,9 @@ class OfficerController extends Controller
 
 
             return back()->with('success', 'User Loan Profile Created Successfully');
-        } catch (Exception $th) {
+       /* } catch (Exception $th) {
             return back()->with('error', 'Oops! Something Went Wrong');
-        }
+        }*/
     }
 
 
