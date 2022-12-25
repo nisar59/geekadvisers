@@ -30,7 +30,7 @@
                             </thead>
 
                             <tbody>
-                                <form action="{{ route('loan.amount.entry') }}" method="POST">
+                                <form action="{{ url('home/loan-officer/loan-entry/') }}" method="POST">
                                     @csrf
                                     <input id="loan_id" type="hidden" value="0" name="id">
 
